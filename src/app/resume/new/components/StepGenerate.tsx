@@ -133,13 +133,13 @@ export default function StepGenerate({ data }: Props) {
   return (
     <div className="flex flex-col md:flex-row">
       {/* 왼쪽: 정보 요약 */}
-      <div className="md:w-[40%] border-b md:border-b-0 md:border-r border-black px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
+      <div className="md:w-[40%] border-b md:border-b-0 md:border-r border-foreground px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
         <div>
-          <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-8">Step 05 — 이력서 생성</p>
+          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-8">Step 05 — 이력서 생성</p>
           <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight mb-8">
             {status === "error" ? "오류 발생" : "생성 중"}
           </h2>
-          <p className="text-sm text-neutral-500 leading-relaxed max-w-xs mb-8">
+          <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-8">
             지금까지 수집한 정보를 바탕으로 AI가 이력서를 작성합니다.
             완료 후 편집 페이지에서 자유롭게 수정할 수 있습니다.
           </p>
@@ -155,8 +155,8 @@ export default function StepGenerate({ data }: Props) {
               { label: "스킬", value: data.skills || "없음" },
             ].map(item => (
               <div key={item.label} className="flex items-center gap-3 text-xs">
-                <span className="text-neutral-400 w-16 shrink-0">{item.label}</span>
-                <span className="font-mono text-neutral-600 truncate">{item.value}</span>
+                <span className="text-muted-foreground w-16 shrink-0">{item.label}</span>
+                <span className="font-mono text-muted-foreground truncate">{item.value}</span>
               </div>
             ))}
           </div>
@@ -165,7 +165,7 @@ export default function StepGenerate({ data }: Props) {
         {status === "error" && (
           <button
             onClick={generate}
-            className="w-full flex items-center justify-between bg-black text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition-colors"
+            className="w-full flex items-center justify-between bg-foreground text-background px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-foreground/80 transition-colors"
           >
             다시 시도
             <span>→</span>
@@ -184,13 +184,13 @@ export default function StepGenerate({ data }: Props) {
                 100% { left: 110%; }
               }
             `}</style>
-            <div className="h-px bg-neutral-100 w-full relative overflow-hidden">
+            <div className="h-px bg-muted w-full relative overflow-hidden">
               <div
-                className="absolute inset-y-0 bg-black"
+                className="absolute inset-y-0 bg-foreground"
                 style={{ width: "35%", animation: "scan-x 1.6s ease-in-out infinite" }}
               />
             </div>
-            <p className="text-xs font-mono text-neutral-400">{statusText}</p>
+            <p className="text-xs font-mono text-muted-foreground">{statusText}</p>
           </div>
         )}
 
@@ -209,25 +209,25 @@ export default function StepGenerate({ data }: Props) {
               >
                 <div className={`w-9 h-9 border-2 flex items-center justify-center text-xs font-mono shrink-0 transition-all ${
                   isActive
-                    ? "border-black bg-black text-white"
+                    ? "border-foreground bg-foreground text-background"
                     : isDone
-                    ? "border-neutral-400 text-neutral-500"
-                    : "border-neutral-200 text-neutral-200"
+                    ? "border-muted-foreground text-muted-foreground"
+                    : "border-border text-border"
                 }`}>
                   {isDone ? "✓" : i + 1}
                 </div>
                 <div className="flex-1">
-                  <p className={`text-sm font-bold ${isActive ? "text-black" : isDone ? "text-neutral-400" : "text-neutral-200"}`}>
+                  <p className={`text-sm font-bold ${isActive ? "text-foreground" : isDone ? "text-muted-foreground" : "text-border"}`}>
                     {step.label}
                   </p>
                   {isActive && (
-                    <p className="text-xs font-mono text-neutral-400 mt-0.5">{step.desc}</p>
+                    <p className="text-xs font-mono text-muted-foreground mt-0.5">{step.desc}</p>
                   )}
                 </div>
                 {isActive && (
                   <div className="relative w-5 h-5 shrink-0">
-                    <div className="absolute inset-0 border border-neutral-200 rounded-full" />
-                    <div className="absolute inset-0 border border-black border-t-transparent rounded-full animate-spin" />
+                    <div className="absolute inset-0 border border-border rounded-full" />
+                    <div className="absolute inset-0 border border-foreground border-t-transparent rounded-full animate-spin" />
                   </div>
                 )}
               </div>
@@ -236,7 +236,7 @@ export default function StepGenerate({ data }: Props) {
         </div>
 
         {status === "done" && (
-          <p className="text-xs font-mono text-neutral-400">{statusText}</p>
+          <p className="text-xs font-mono text-muted-foreground">{statusText}</p>
         )}
       </div>
     </div>

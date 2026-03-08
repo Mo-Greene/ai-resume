@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
 import StepBasicInfo from "./components/StepBasicInfo"
 import StepExperience from "./components/StepExperience"
 import StepProjects from "./components/StepProjects"
 import StepSkills from "./components/StepSkills"
 import StepGenerate from "./components/StepGenerate"
+import { AppHeader } from "@/components/AppHeader"
 
 export interface NewResumeData {
   // Step 1
@@ -54,17 +54,12 @@ export default function NewResumePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-black font-sans">
+    <div className="min-h-screen bg-background text-foreground font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-black h-14 px-10 flex items-center justify-between">
-        <Link href="/" className="text-sm font-bold tracking-[0.2em] uppercase hover:opacity-60 transition-opacity">
-          ResumeAI
-        </Link>
-        <span className="text-xs tracking-[0.25em] uppercase text-neutral-400">AI 인터뷰</span>
-      </header>
+      <AppHeader label="AI 인터뷰" className="sticky top-0 z-50 px-10" />
 
       {/* Progress Bar */}
-      <div className="border-b border-black">
+      <div className="border-b border-foreground">
         <div className="flex">
           {STEPS.map((step, i) => {
             const isDone = i < currentStep
@@ -72,15 +67,15 @@ export default function NewResumePage() {
             return (
               <div
                 key={i}
-                className={`flex-1 px-2 md:px-4 py-3 flex items-center gap-1.5 md:gap-2 border-r border-black last:border-r-0 transition-colors ${
-                  isActive ? "bg-black text-white" : isDone ? "bg-neutral-100" : ""
+                className={`flex-1 px-2 md:px-4 py-3 flex items-center gap-1.5 md:gap-2 border-r border-foreground last:border-r-0 transition-colors ${
+                  isActive ? "bg-foreground text-background" : isDone ? "bg-muted" : ""
                 }`}
               >
-                <span className={`text-xs font-mono shrink-0 ${isActive ? "text-white" : isDone ? "text-neutral-400" : "text-neutral-300"}`}>
+                <span className={`text-xs font-mono shrink-0 ${isActive ? "text-background" : isDone ? "text-muted-foreground" : "text-muted-foreground/40"}`}>
                   {isDone ? "✓" : String(i + 1).padStart(2, "0")}
                 </span>
                 <span className={`text-xs font-bold tracking-[0.1em] uppercase truncate hidden sm:block ${
-                  isActive ? "text-white" : isDone ? "text-neutral-500" : "text-neutral-300"
+                  isActive ? "text-background" : isDone ? "text-muted-foreground" : "text-muted-foreground/40"
                 }`}>
                   {step.label}
                 </span>

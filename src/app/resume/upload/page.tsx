@@ -1,8 +1,8 @@
 "use client"
 
 import { useCallback, useRef, useState } from "react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { AppHeader } from "@/components/AppHeader"
 
 type Step = "upload" | "parsing" | "converting"
 
@@ -131,7 +131,7 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-black font-sans">
+    <div className="min-h-screen bg-background text-foreground font-sans">
       <style>{`
         @keyframes scan-x {
           0%   { left: -35%; }
@@ -144,30 +144,25 @@ export default function UploadPage() {
       `}</style>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-black h-14 px-4 md:px-10 flex items-center justify-between">
-        <Link href="/" className="text-sm font-bold tracking-[0.2em] uppercase hover:opacity-60 transition-opacity">
-          ResumeAI
-        </Link>
-        <span className="text-xs tracking-[0.25em] uppercase text-neutral-400">PDF 업로드</span>
-      </header>
+      <AppHeader label="PDF 업로드" />
 
       <main className="min-h-[calc(100vh-56px)] flex">
 
         {/* ── Step 1: Upload ── */}
         {step === "upload" && (
           <div className="flex-1 grid md:grid-cols-2">
-            <div className="border-b md:border-b-0 md:border-r border-black px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
+            <div className="border-b md:border-b-0 md:border-r border-foreground px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
               <div>
-                <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-8">Flow A — PDF 보강</p>
+                <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-8">Flow A — PDF 보강</p>
                 <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-black uppercase leading-[1.05] tracking-tight mb-8">
                   이력서<br />업로드
                 </h1>
-                <p className="text-sm text-neutral-500 leading-relaxed max-w-xs">
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
                   기존 PDF 이력서를 업로드하면 AI가 Markdown 형식으로 변환합니다.
                   이후 직접 수정하거나 AI에게 다듬기를 요청할 수 있습니다.
                 </p>
               </div>
-              <div className="space-y-3 text-xs text-neutral-400">
+              <div className="space-y-3 text-xs text-muted-foreground">
                 {["PDF 파일만 가능", "최대 10MB", "내용은 외부에 저장되지 않습니다"].map((t, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <span className="font-mono">—</span>
@@ -186,23 +181,23 @@ export default function UploadPage() {
                 className={`
                   border-2 border-dashed cursor-pointer flex flex-col items-center justify-center
                   py-20 px-8 text-center transition-colors
-                  ${isDragging ? "border-black bg-neutral-50" : "border-neutral-300 hover:border-black"}
-                  ${file ? "border-black" : ""}
+                  ${isDragging ? "border-foreground bg-muted/30" : "border-border hover:border-foreground"}
+                  ${file ? "border-foreground" : ""}
                 `}
               >
                 <input ref={inputRef} type="file" accept="application/pdf" className="hidden" onChange={onInputChange} />
                 {file ? (
                   <>
-                    <p className="text-xs tracking-widest uppercase text-neutral-400 mb-2">선택된 파일</p>
+                    <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">선택된 파일</p>
                     <p className="text-lg font-bold">{file.name}</p>
-                    <p className="text-xs text-neutral-400 mt-1">{(file.size / 1024 / 1024).toFixed(1)} MB</p>
+                    <p className="text-xs text-muted-foreground mt-1">{(file.size / 1024 / 1024).toFixed(1)} MB</p>
                   </>
                 ) : (
                   <>
-                    <p className="text-xs tracking-widest uppercase text-neutral-400 mb-3">
+                    <p className="text-xs tracking-widest uppercase text-muted-foreground mb-3">
                       {isDragging ? "여기에 놓으세요" : "드래그 또는 클릭"}
                     </p>
-                    <p className="text-sm text-neutral-400">PDF 파일을 선택하세요</p>
+                    <p className="text-sm text-muted-foreground">PDF 파일을 선택하세요</p>
                   </>
                 )}
               </div>
@@ -212,7 +207,7 @@ export default function UploadPage() {
               <button
                 onClick={startAnalysis}
                 disabled={!file}
-                className="w-full flex items-center justify-between bg-black text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-between bg-foreground text-background px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-foreground/80 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 변환 시작하기
                 <span>→</span>
@@ -226,9 +221,9 @@ export default function UploadPage() {
           <div className="flex-1 grid md:grid-cols-2">
 
             {/* 왼쪽: 파일 정보 */}
-            <div className="border-b md:border-b-0 md:border-r border-black px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
+            <div className="border-b md:border-b-0 md:border-r border-foreground px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
               <div>
-                <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-8">
+                <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-8">
                   {step === "parsing" ? "분석 중" : "변환 중"}
                 </p>
                 <h2
@@ -240,7 +235,7 @@ export default function UploadPage() {
                 >
                   {file?.name}
                 </h2>
-                <div className="space-y-1 font-mono text-xs text-neutral-400">
+                <div className="space-y-1 font-mono text-xs text-muted-foreground">
                   <p>{file && (file.size / 1024 / 1024).toFixed(2)} MB</p>
                   {pageCount && (
                     <p style={{ animation: "fade-up 0.4s ease both" }}>
@@ -252,13 +247,13 @@ export default function UploadPage() {
 
               {/* 스캔 바 */}
               <div className="space-y-3">
-                <div className="h-px bg-neutral-100 w-full relative overflow-hidden">
+                <div className="h-px bg-muted w-full relative overflow-hidden">
                   <div
-                    className="absolute inset-y-0 bg-black"
+                    className="absolute inset-y-0 bg-foreground"
                     style={{ width: "35%", animation: "scan-x 1.6s ease-in-out infinite" }}
                   />
                 </div>
-                <p className="text-xs font-mono text-neutral-400">{statusText}</p>
+                <p className="text-xs font-mono text-muted-foreground">{statusText}</p>
               </div>
             </div>
 
@@ -280,27 +275,27 @@ export default function UploadPage() {
                   >
                     <div className={`w-9 h-9 border-2 flex items-center justify-center text-xs font-mono shrink-0 transition-all ${
                       isActive
-                        ? "border-black bg-black text-white"
+                        ? "border-foreground bg-foreground text-background"
                         : isDone
-                        ? "border-neutral-400 text-neutral-500"
-                        : "border-neutral-200 text-neutral-200"
+                        ? "border-muted-foreground text-muted-foreground"
+                        : "border-border text-border"
                     }`}>
                       {isDone ? "✓" : i + 1}
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-bold ${isActive ? "text-black" : isDone ? "text-neutral-400" : "text-neutral-200"}`}>
+                      <p className={`text-sm font-bold ${isActive ? "text-foreground" : isDone ? "text-muted-foreground" : "text-border"}`}>
                         {s.label}
                       </p>
                       {isActive && (
-                        <p className="text-xs font-mono text-neutral-400 mt-0.5">{s.desc}</p>
+                        <p className="text-xs font-mono text-muted-foreground mt-0.5">{s.desc}</p>
                       )}
                     </div>
 
                     {isActive && (
                       <div className="relative w-5 h-5 shrink-0">
-                        <div className="absolute inset-0 border border-neutral-200 rounded-full" />
-                        <div className="absolute inset-0 border border-black border-t-transparent rounded-full animate-spin" />
+                        <div className="absolute inset-0 border border-border rounded-full" />
+                        <div className="absolute inset-0 border border-foreground border-t-transparent rounded-full animate-spin" />
                       </div>
                     )}
                   </div>

@@ -134,19 +134,19 @@ export default function InterviewStep({
   return (
     <div className="flex flex-col md:flex-row min-h-[calc(100vh-56px-48px)]">
       {/* 상단(모바일) / 왼쪽(데스크탑): 안내 */}
-      <div className="md:w-[280px] md:shrink-0 border-b md:border-b-0 md:border-r border-black px-6 md:px-8 py-6 md:py-14 flex flex-col md:justify-between gap-4 md:gap-0">
+      <div className="md:w-[280px] md:shrink-0 border-b md:border-b-0 md:border-r border-foreground px-6 md:px-8 py-6 md:py-14 flex flex-col md:justify-between gap-4 md:gap-0">
         <div>
-          <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-4 md:mb-8">{stepLabel}</p>
+          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4 md:mb-8">{stepLabel}</p>
           <h2 className="text-xl md:text-2xl font-black uppercase leading-tight tracking-tight mb-3 md:mb-6 whitespace-pre-line">
             {title}
           </h2>
-          <p className="text-xs text-neutral-500 leading-relaxed hidden md:block">{description}</p>
+          <p className="text-xs text-muted-foreground leading-relaxed hidden md:block">{description}</p>
         </div>
 
         <div className="flex flex-col sm:flex-row md:flex-col gap-2 md:gap-3">
           {contextBadges.map(badge => (
-            <div key={badge.label} className="border border-neutral-100 px-4 py-2 md:py-3 flex-1">
-              <p className="text-xs tracking-widest uppercase text-neutral-400 mb-1">{badge.label}</p>
+            <div key={badge.label} className="border border-border/50 px-4 py-2 md:py-3 flex-1">
+              <p className="text-xs tracking-widest uppercase text-muted-foreground mb-1">{badge.label}</p>
               <p className="text-sm font-bold">{badge.value}</p>
             </div>
           ))}
@@ -154,13 +154,13 @@ export default function InterviewStep({
           <button
             onClick={handleNext}
             disabled={isSummarizing || !canProceed}
-            className="w-full flex items-center justify-between bg-black text-white px-5 py-3 md:py-3.5 text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-between bg-foreground text-background px-5 py-3 md:py-3.5 text-xs font-bold tracking-widest uppercase hover:bg-foreground/80 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             {isSummarizing ? "정리 중..." : "다음 단계"}
             <span>→</span>
           </button>
           {!canProceed && (
-            <p className="text-xs text-neutral-400 text-center">AI와 대화 후 활성화됩니다</p>
+            <p className="text-xs text-muted-foreground text-center">AI와 대화 후 활성화됩니다</p>
           )}
         </div>
       </div>
@@ -172,13 +172,13 @@ export default function InterviewStep({
             <div key={i} className={msg.role === "user" ? "text-right" : "text-left"}>
               <div className={`inline-block max-w-[80%] text-sm leading-relaxed px-4 py-3 ${
                 msg.role === "user"
-                  ? "bg-black text-white"
-                  : "border border-neutral-200 text-black"
+                  ? "bg-foreground text-background"
+                  : "border border-border text-foreground"
               }`}>
                 <p className="whitespace-pre-wrap">
                   {msg.content}
                   {msg.streaming && (
-                    <span className="inline-block w-0.5 h-4 bg-neutral-400 ml-0.5 animate-pulse align-middle" />
+                    <span className="inline-block w-0.5 h-4 bg-muted-foreground ml-0.5 animate-pulse align-middle" />
                   )}
                 </p>
               </div>
@@ -186,15 +186,15 @@ export default function InterviewStep({
           ))}
           {isLoading && messages.length === 0 && (
             <div className="text-left">
-              <div className="inline-block border border-neutral-200 px-4 py-3">
-                <span className="text-xs text-neutral-400 font-mono">준비 중...</span>
+              <div className="inline-block border border-border px-4 py-3">
+                <span className="text-xs text-muted-foreground font-mono">준비 중...</span>
               </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="shrink-0 border-t border-black p-3 md:p-4">
+        <div className="shrink-0 border-t border-foreground p-3 md:p-4">
           <div className="flex gap-3 items-end">
             <textarea
               ref={inputRef}
@@ -208,12 +208,12 @@ export default function InterviewStep({
               }}
               placeholder="답변을 입력하세요... (Shift+Enter 줄바꿈)"
               rows={2}
-              className="flex-1 resize-none text-sm outline-none placeholder:text-neutral-300 leading-relaxed"
+              className="flex-1 resize-none text-sm outline-none placeholder:text-muted-foreground/40 leading-relaxed bg-background text-foreground"
             />
             <button
               onClick={sendMessage}
               disabled={!input.trim() || isLoading}
-              className="shrink-0 text-xs font-bold tracking-widest uppercase bg-black text-white px-4 py-2.5 hover:bg-neutral-800 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="shrink-0 text-xs font-bold tracking-widest uppercase bg-foreground text-background px-4 py-2.5 hover:bg-foreground/80 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               전송
             </button>

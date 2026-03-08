@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useEffect } from "react"
+import { AppHeader } from "@/components/AppHeader"
 
 export default function Home() {
   useEffect(() => {
@@ -19,32 +20,19 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="bg-white text-black font-sans overflow-x-hidden">
+    <div className="bg-background text-foreground font-sans overflow-x-hidden">
 
       {/* ── Header (sticky) ── */}
-      <header className="sticky top-0 z-50 bg-white border-b border-black h-14 px-8 flex items-center justify-between">
-        <span
-          className="text-sm font-bold tracking-[0.2em] uppercase"
-          style={{ animation: "fade-in 0.6s ease forwards" }}
-        >
-          ResumeAI
-        </span>
-        <span
-          className="text-xs tracking-widest uppercase text-neutral-400"
-          style={{ animation: "fade-in 0.6s ease 0.2s both" }}
-        >
-          Beta
-        </span>
-      </header>
+      <AppHeader isHome label="Beta" className="sticky top-0 z-50 px-8" />
 
       {/* ── Section 1: Hero ── */}
-      <section className="border-b border-black grid md:grid-cols-2 h-[calc(100vh-56px)]">
+      <section className="border-b border-foreground grid md:grid-cols-2 h-[calc(100vh-56px)]">
 
         {/* 왼쪽: 헤드라인 */}
-        <div className="md:border-r border-black px-10 flex flex-col justify-between py-12">
+        <div className="md:border-r border-foreground px-10 flex flex-col justify-between py-12">
           <div>
             <p
-              className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-10"
+              className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-10"
               style={{ animation: "fade-in 0.7s ease 0.1s both" }}
             >
               AI-Powered Resume Builder
@@ -57,12 +45,12 @@ export default function Home() {
                 <span className="hero-line" style={{ animationDelay: "0.35s" }}>이력서를</span>
               </span>
               <span className="block overflow-hidden py-1">
-                <span className="hero-line text-neutral-300" style={{ animationDelay: "0.55s" }}>다시 쓰다.</span>
+                <span className="hero-line text-muted-foreground/60" style={{ animationDelay: "0.55s" }}>다시 쓰다.</span>
               </span>
             </h1>
           </div>
           <p
-            className="text-sm text-neutral-400 max-w-sm leading-relaxed"
+            className="text-sm text-muted-foreground max-w-sm leading-relaxed"
             style={{ animation: "slide-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}
           >
             PDF를 업로드하거나, AI와 대화하며 처음부터 —<br />
@@ -71,24 +59,24 @@ export default function Home() {
         </div>
 
         {/* 오른쪽: 두 진입점 */}
-        <div className="flex flex-col divide-y divide-black">
+        <div className="flex flex-col divide-y divide-foreground">
           {/* A: PDF 업로드 */}
           <Link
             href="/resume/upload"
-            className="group flex-1 px-10 flex flex-col justify-between py-10 hover:bg-black hover:text-white transition-colors duration-300"
+            className="group flex-1 px-10 flex flex-col justify-between py-10 hover:bg-foreground hover:text-background transition-colors duration-300"
             style={{ animation: "fade-in 0.7s ease 0.5s both" }}
           >
             <div className="flex items-start justify-between">
-              <span className="text-xs tracking-[0.25em] uppercase text-neutral-400 group-hover:text-neutral-500">
+              <span className="text-xs tracking-[0.25em] uppercase text-muted-foreground group-hover:text-muted-foreground/70">
                 기존 이력서가 있다면
               </span>
-              <span className="text-sm font-mono text-neutral-200 group-hover:text-neutral-600">A</span>
+              <span className="text-sm font-mono text-muted-foreground/30 group-hover:text-muted-foreground/60">A</span>
             </div>
             <div>
               <h2 className="text-3xl font-black uppercase leading-tight mb-4">
                 PDF 업로드<br />&amp; 강화
               </h2>
-              <p className="text-sm text-neutral-500 group-hover:text-neutral-400 leading-relaxed mb-6 max-w-xs">
+              <p className="text-sm text-muted-foreground group-hover:text-muted-foreground/80 leading-relaxed mb-6 max-w-xs">
                 AI가 기존 이력서를 분석하고 보완 질문으로 내용을 채워 더 강한 문구로 다듬어 드립니다.
               </p>
               <span className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase border-b border-current pb-0.5">
@@ -100,20 +88,20 @@ export default function Home() {
           {/* B: 처음부터 작성 */}
           <Link
             href="/resume/new"
-            className="group flex-1 px-10 flex flex-col justify-between py-10 hover:bg-black hover:text-white transition-colors duration-300"
+            className="group flex-1 px-10 flex flex-col justify-between py-10 hover:bg-foreground hover:text-background transition-colors duration-300"
             style={{ animation: "fade-in 0.7s ease 0.65s both" }}
           >
             <div className="flex items-start justify-between">
-              <span className="text-xs tracking-[0.25em] uppercase text-neutral-400 group-hover:text-neutral-500">
+              <span className="text-xs tracking-[0.25em] uppercase text-muted-foreground group-hover:text-muted-foreground/70">
                 이력서가 없다면
               </span>
-              <span className="text-sm font-mono text-neutral-200 group-hover:text-neutral-600">B</span>
+              <span className="text-sm font-mono text-muted-foreground/30 group-hover:text-muted-foreground/60">B</span>
             </div>
             <div>
               <h2 className="text-3xl font-black uppercase leading-tight mb-4">
                 대화형<br />AI 인터뷰
               </h2>
-              <p className="text-sm text-neutral-500 group-hover:text-neutral-400 leading-relaxed mb-6 max-w-xs">
+              <p className="text-sm text-muted-foreground group-hover:text-muted-foreground/80 leading-relaxed mb-6 max-w-xs">
                 AI가 단계별로 질문하며 경험을 이끌어내고, 전문적인 이력서 문구로 만들어 드립니다.
               </p>
               <span className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase border-b border-current pb-0.5">
@@ -125,20 +113,20 @@ export default function Home() {
       </section>
 
       {/* ── Section 2 + 3: 한 화면 ── */}
-      <section className="border-b border-neutral-200 grid md:grid-cols-2">
+      <section className="border-b border-border grid md:grid-cols-2">
 
         {/* A 타임라인 */}
-        <div className="md:border-r border-neutral-200 border-b md:border-b-0 px-10 py-14 flex flex-col justify-between">
+        <div className="md:border-r border-border border-b md:border-b-0 px-10 py-14 flex flex-col justify-between">
           <div className="flex items-baseline gap-3 mb-10" data-animate>
-            <span className="text-[5rem] font-black leading-none text-neutral-100 select-none">A</span>
+            <span className="text-[5rem] font-black leading-none text-muted-foreground/20 select-none">A</span>
             <div>
-              <p className="text-xs tracking-[0.25em] uppercase text-neutral-400">기존 이력서가 있다면</p>
+              <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground">기존 이력서가 있다면</p>
               <p className="text-xl font-black uppercase leading-tight">PDF 업로드 & 강화</p>
             </div>
           </div>
 
           <div className="relative flex-1">
-            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-neutral-200" />
+            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-border" />
             {[
               { n: "01", label: "PDF 업로드",       desc: "기존 PDF 파일을 드래그하거나 선택" },
               { n: "02", label: "AI 분석",           desc: "약점 파악 및 보완 포인트 도출" },
@@ -151,15 +139,15 @@ export default function Home() {
                 className="relative flex gap-5 pb-10 last:pb-0"
                 style={{ transitionDelay: `${0.05 + i * 0.1}s` }}
               >
-                <div className="relative z-10 shrink-0 w-6 h-6 rounded-full border-2 border-black bg-white flex items-center justify-center mt-0.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                <div className="relative z-10 shrink-0 w-6 h-6 rounded-full border-2 border-foreground bg-background flex items-center justify-center mt-0.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-mono text-neutral-400">{step.n}</span>
+                    <span className="text-[10px] font-mono text-muted-foreground">{step.n}</span>
                     <span className="text-sm font-bold">{step.label}</span>
                   </div>
-                  <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -169,15 +157,15 @@ export default function Home() {
         {/* B 타임라인 */}
         <div className="px-10 py-14 flex flex-col justify-between">
           <div className="flex items-baseline gap-3 mb-10" data-animate>
-            <span className="text-[5rem] font-black leading-none text-neutral-100 select-none">B</span>
+            <span className="text-[5rem] font-black leading-none text-muted-foreground/20 select-none">B</span>
             <div>
-              <p className="text-xs tracking-[0.25em] uppercase text-neutral-400">이력서가 없다면</p>
+              <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground">이력서가 없다면</p>
               <p className="text-xl font-black uppercase leading-tight">대화형 AI 인터뷰</p>
             </div>
           </div>
 
           <div className="relative flex-1">
-            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-neutral-200" />
+            <div className="absolute left-[11px] top-6 bottom-6 w-px bg-border" />
             {[
               { n: "01", label: "기본 정보 입력",      desc: "이름, 연락처, 직무 목표 설정" },
               { n: "02", label: "경력 & 프로젝트",      desc: "AI가 단계별로 경험을 끌어내는 인터뷰" },
@@ -190,15 +178,15 @@ export default function Home() {
                 className="relative flex gap-5 pb-10 last:pb-0"
                 style={{ transitionDelay: `${0.05 + i * 0.1}s` }}
               >
-                <div className="relative z-10 shrink-0 w-6 h-6 rounded-full border-2 border-black bg-white flex items-center justify-center mt-0.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                <div className="relative z-10 shrink-0 w-6 h-6 rounded-full border-2 border-foreground bg-background flex items-center justify-center mt-0.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-mono text-neutral-400">{step.n}</span>
+                    <span className="text-[10px] font-mono text-muted-foreground">{step.n}</span>
                     <span className="text-sm font-bold">{step.label}</span>
                   </div>
-                  <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -208,7 +196,7 @@ export default function Home() {
 
       {/* ── Section 3: Output Pipeline ── */}
       <section className="px-10 py-20 flex flex-col items-center justify-center text-center">
-        <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-12" data-animate>
+        <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-12" data-animate>
           Output Pipeline
         </p>
         <div className="flex flex-wrap items-center justify-center mb-8">
@@ -219,17 +207,17 @@ export default function Home() {
               data-animate
               style={{ transitionDelay: `${i * 0.07}s` }}
             >
-              <span className="border border-black px-5 py-3 text-sm font-medium tracking-wide hover:bg-black hover:text-white transition-colors cursor-default">
+              <span className="border border-foreground px-5 py-3 text-sm font-medium tracking-wide hover:bg-foreground hover:text-background transition-colors cursor-default">
                 {item}
               </span>
               {i < arr.length - 1 && (
-                <span className="px-3 text-neutral-300 text-base">→</span>
+                <span className="px-3 text-muted-foreground/60 text-base">→</span>
               )}
             </div>
           ))}
         </div>
         <p
-          className="text-sm text-neutral-400 max-w-md leading-relaxed"
+          className="text-sm text-muted-foreground max-w-md leading-relaxed"
           data-animate
           style={{ transitionDelay: "0.45s" }}
         >
@@ -239,8 +227,8 @@ export default function Home() {
       </section>
 
       {/* ── Section 4: CTA ── */}
-      <section className="bg-black text-white px-10 min-h-[calc(100vh-56px)] flex flex-col items-center justify-center text-center">
-        <p className="text-xs tracking-[0.3em] uppercase text-neutral-600 mb-6" data-animate>
+      <section className="bg-foreground text-background px-10 min-h-[calc(100vh-56px)] flex flex-col items-center justify-center text-center">
+        <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-6" data-animate>
           지금 시작하세요
         </p>
         <h2
@@ -257,13 +245,13 @@ export default function Home() {
         >
           <Link
             href="/resume/upload"
-            className="btn-sweep inline-flex items-center gap-3 bg-white text-black px-10 py-4 text-xs font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors"
+            className="btn-sweep inline-flex items-center gap-3 bg-background text-foreground px-10 py-4 text-xs font-bold tracking-widest uppercase hover:bg-muted transition-colors"
           >
             PDF 업로드 <span>→</span>
           </Link>
           <Link
             href="/resume/new"
-            className="btn-sweep inline-flex items-center gap-3 border border-white text-white px-10 py-4 text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-colors"
+            className="btn-sweep inline-flex items-center gap-3 border border-background text-background px-10 py-4 text-xs font-bold tracking-widest uppercase hover:bg-background hover:text-foreground transition-colors"
           >
             처음부터 작성 <span>→</span>
           </Link>
@@ -271,9 +259,9 @@ export default function Home() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-black px-10 py-5 flex items-center justify-between bg-black text-white">
+      <footer className="border-t border-foreground px-10 py-5 flex items-center justify-between bg-foreground text-background">
         <span className="text-xs font-bold tracking-[0.2em] uppercase">ResumeAI</span>
-        <span className="text-xs text-neutral-600 tracking-wide">Claude · GPT-4o · Gemini</span>
+        <span className="text-xs text-muted-foreground tracking-wide">Claude · GPT-4o · Gemini</span>
       </footer>
     </div>
   )
