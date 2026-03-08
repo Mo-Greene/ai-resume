@@ -9,9 +9,9 @@ export async function gptChat(
   systemPrompt: string
 ): Promise<string> {
   const response = await client.chat.completions.create({
-    model: "gpt-4o",
+    model: "gpt-4o-mini",
     messages: [{ role: "system", content: systemPrompt }, ...messages],
-    max_tokens: 2048,
+    max_tokens: 4096,
   })
 
   return response.choices[0].message.content ?? ""

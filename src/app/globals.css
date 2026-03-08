@@ -127,3 +127,81 @@
     @apply font-sans;
   }
 }
+
+/* ── Hero load animations ── */
+
+/* Text reveal: slides up from behind overflow-hidden wrapper */
+@keyframes text-reveal {
+  from { transform: translateY(105%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Hero line: the span itself animates; parent must be overflow-hidden */
+.hero-line {
+  display: block;
+  animation: text-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Scroll-reveal base ── */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-animate="left"] {
+  transform: translateX(-28px);
+}
+[data-animate="scale"] {
+  transform: scale(0.88);
+  opacity: 0;
+}
+[data-animate].in-view {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+/* ── Spinner ── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 0.8s linear infinite;
+}
+
+/* ── Button sweep hover ── */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+.btn-sweep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  transform: translateX(-101%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  opacity: 0.08;
+}
+.btn-sweep:hover::before {
+  transform: translateX(0);
+}
