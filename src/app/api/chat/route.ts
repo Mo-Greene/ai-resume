@@ -1,19 +1,24 @@
 import { NextRequest, NextResponse } from "next/server"
 import { chat } from "@/lib/ai"
 import { ChatMessage, AIProvider } from "@/types/resume"
+import { validateChatRequest } from "@/lib/api/validate"
 import OpenAI from "openai"
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, systemPrompt, provider = "gpt", stream = false } =
-      (await req.json()) as {
-        messages: ChatMessage[]
-        systemPrompt?: string
-        provider?: AIProvider
-        stream?: boolean
-      }
+    const body = await req.json()
+
+    const validationError = validateChatRequest(body)
+    if (validationError) return validationError
+
+    const { messages, systemPrompt, provider = "gpt", stream = false } = body as {
+      messages: ChatMessage[]
+      systemPrompt?: string
+      provider: AIProvider
+      stream?: boolean
+    }
 
     const system = systemPrompt ?? `당신은 전문 이력서 작성 도우미입니다.
 사용자의 경험과 정보를 바탕으로 임팩트 있는 이력서 문구를 작성해줍니다.

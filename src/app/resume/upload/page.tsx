@@ -144,19 +144,19 @@ export default function UploadPage() {
       `}</style>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-black h-14 px-10 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-white border-b border-black h-14 px-4 md:px-10 flex items-center justify-between">
         <Link href="/" className="text-sm font-bold tracking-[0.2em] uppercase hover:opacity-60 transition-opacity">
           ResumeAI
         </Link>
         <span className="text-xs tracking-[0.25em] uppercase text-neutral-400">PDF 업로드</span>
       </header>
 
-      <main className="h-[calc(100vh-56px)] flex">
+      <main className="min-h-[calc(100vh-56px)] flex">
 
         {/* ── Step 1: Upload ── */}
         {step === "upload" && (
           <div className="flex-1 grid md:grid-cols-2">
-            <div className="md:border-r border-black px-10 py-14 flex flex-col justify-between">
+            <div className="border-b md:border-b-0 md:border-r border-black px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
               <div>
                 <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-8">Flow A — PDF 보강</p>
                 <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-black uppercase leading-[1.05] tracking-tight mb-8">
@@ -177,7 +177,7 @@ export default function UploadPage() {
               </div>
             </div>
 
-            <div className="px-10 py-14 flex flex-col justify-center gap-6">
+            <div className="px-6 md:px-10 py-10 md:py-14 flex flex-col justify-center gap-6">
               <div
                 onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
                 onDragLeave={() => setIsDragging(false)}
@@ -226,7 +226,7 @@ export default function UploadPage() {
           <div className="flex-1 grid md:grid-cols-2">
 
             {/* 왼쪽: 파일 정보 */}
-            <div className="md:border-r border-black px-10 py-14 flex flex-col justify-between">
+            <div className="border-b md:border-b-0 md:border-r border-black px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
               <div>
                 <p className="text-xs tracking-[0.3em] uppercase text-neutral-400 mb-8">
                   {step === "parsing" ? "분석 중" : "변환 중"}
@@ -263,7 +263,7 @@ export default function UploadPage() {
             </div>
 
             {/* 오른쪽: 단계 진행 */}
-            <div className="px-10 py-14 flex flex-col justify-center gap-8">
+            <div className="px-6 md:px-10 py-10 md:py-14 flex flex-col justify-center gap-8">
               {STEPS.map((s, i) => {
                 const isActive = step === s.id
                 const isDone = (step === "converting" && s.id === "parsing")

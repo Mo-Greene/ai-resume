@@ -69,7 +69,10 @@ export default function EditPage() {
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const [mobileTab, setMobileTab] = useState<"editor" | "chat">("editor")
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  const handlePrint = () => window.print()
 
   useEffect(() => {
     const raw = localStorage.getItem(id)
@@ -211,6 +214,37 @@ export default function EditPage() {
   return (
     <div className="h-screen bg-white text-black font-sans flex flex-col overflow-hidden">
 
+      {/* 인쇄 전용 스타일 */}
+      <style>{`
+        @media print {
+          * { visibility: hidden; }
+          #resume-print, #resume-print * { visibility: visible; }
+          #resume-print {
+            position: fixed;
+            inset: 0;
+            padding: 20mm 25mm;
+            background: white;
+            font-family: sans-serif;
+          }
+          #resume-print h1 { font-size: 24pt; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 12pt; border-bottom: 1pt solid black; padding-bottom: 8pt; }
+          #resume-print h2 { font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: #737373; margin-top: 20pt; margin-bottom: 8pt; }
+          #resume-print h3 { font-size: 10pt; font-weight: 700; margin-top: 10pt; margin-bottom: 4pt; }
+          #resume-print p { font-size: 9pt; line-height: 1.6; color: #404040; margin-bottom: 4pt; }
+          #resume-print ul { padding-left: 14pt; margin-bottom: 6pt; }
+          #resume-print li { font-size: 9pt; line-height: 1.6; color: #404040; margin-bottom: 2pt; }
+          #resume-print strong { font-weight: 700; color: black; }
+          #resume-print hr { border-color: #e5e5e5; margin: 14pt 0; }
+        }
+        @media screen {
+          #resume-print { position: absolute; left: -9999px; top: 0; }
+        }
+      `}</style>
+
+      {/* 인쇄 전용 컨텐츠 (화면에서는 숨김) */}
+      <div id="resume-print" aria-hidden="true">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
+      </div>
+
       {/* 미리보기 모달 */}
       {isPreviewOpen && (
         <div className="fixed inset-0 z-50 bg-white flex flex-col">
@@ -242,29 +276,52 @@ export default function EditPage() {
       )}
 
       {/* Header */}
-      <header className="shrink-0 bg-white border-b border-black h-14 px-10 flex items-center justify-between">
-        <Link href="/" className="text-sm font-bold tracking-[0.2em] uppercase hover:opacity-60 transition-opacity">
+      <header className="shrink-0 bg-white border-b border-black h-14 px-4 md:px-10 flex items-center justify-between gap-2">
+        <Link href="/" className="text-sm font-bold tracking-[0.2em] uppercase hover:opacity-60 transition-opacity shrink-0">
           ResumeAI
         </Link>
-        <span className="text-xs text-neutral-400 font-mono truncate max-w-[200px]">{resume.fileName}</span>
-        <div className="flex items-center gap-3">
+        <span className="text-xs text-neutral-400 font-mono truncate max-w-[120px] md:max-w-[200px]">{resume.fileName}</span>
+        <div className="flex items-center gap-2 md:gap-3 shrink-0">
           <button
             onClick={() => setIsPreviewOpen(true)}
-            className="text-xs tracking-widest uppercase font-bold border border-black px-5 py-2 hover:bg-black hover:text-white transition-colors"
+            className="text-xs tracking-widest uppercase font-bold border border-black px-3 md:px-5 py-2 hover:bg-black hover:text-white transition-colors"
           >
             미리보기
           </button>
-          <button className="text-xs tracking-widest uppercase font-bold bg-black text-white px-5 py-2 hover:bg-neutral-800 transition-colors">
+          <button
+            onClick={handlePrint}
+            className="text-xs tracking-widest uppercase font-bold bg-black text-white px-3 md:px-5 py-2 hover:bg-neutral-800 transition-colors"
+          >
             PDF 저장
           </button>
         </div>
       </header>
 
+      {/* 모바일 탭 (md 이상에서는 숨김) */}
+      <div className="md:hidden shrink-0 border-b border-black flex">
+        <button
+          onClick={() => setMobileTab("editor")}
+          className={`flex-1 py-2.5 text-xs font-bold tracking-widest uppercase transition-colors ${
+            mobileTab === "editor" ? "bg-black text-white" : "text-neutral-400"
+          }`}
+        >
+          편집
+        </button>
+        <button
+          onClick={() => setMobileTab("chat")}
+          className={`flex-1 py-2.5 text-xs font-bold tracking-widest uppercase border-l border-black transition-colors ${
+            mobileTab === "chat" ? "bg-black text-white" : "text-neutral-400"
+          }`}
+        >
+          AI 채팅
+        </button>
+      </div>
+
       {/* Main */}
-      <div className="flex-1 grid grid-cols-[1fr_380px] overflow-hidden">
+      <div className="flex-1 md:grid md:grid-cols-[1fr_380px] overflow-hidden">
 
         {/* 좌: Markdown 에디터 */}
-        <div className="flex flex-col border-r border-black overflow-hidden">
+        <div className={`flex-col border-r border-black overflow-hidden ${mobileTab === "editor" ? "flex" : "hidden md:flex"}`}>
           <div className="shrink-0 border-b border-neutral-200 px-6 py-3 flex items-center justify-between">
             <span className="text-xs tracking-[0.2em] uppercase text-neutral-400">Markdown 편집</span>
             <span className="text-xs font-mono text-neutral-300">{markdown.length} chars</span>
@@ -279,8 +336,8 @@ export default function EditPage() {
         </div>
 
         {/* 우: AI 채팅 */}
-        <div className="flex flex-col overflow-hidden">
-          <div className="shrink-0 border-b border-neutral-200 px-6 py-3 flex items-center">
+        <div className={`flex-col overflow-hidden ${mobileTab === "chat" ? "flex" : "hidden md:flex"}`}>
+          <div className="shrink-0 border-b border-neutral-200 px-6 py-3 items-center hidden md:flex">
             <span className="text-xs tracking-[0.2em] uppercase text-neutral-400">AI 어시스턴트</span>
           </div>
 

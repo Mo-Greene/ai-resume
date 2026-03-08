@@ -19,11 +19,6 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer())
     const data = await pdfParse(buffer)
 
-    console.log("[parse-pdf] 파싱 완료")
-    console.log("[parse-pdf] 파일명:", file.name)
-    console.log("[parse-pdf] 페이지 수:", data.numpages)
-    console.log("[parse-pdf] 추출된 텍스트:\n---\n", data.text, "\n---")
-
     return NextResponse.json({
       text: data.text,
       pageCount: data.numpages,
