@@ -2,6 +2,7 @@
 .idea/
 
 # Claude
+AGENTS.md
 CLAUDE.md
 .docs/
 
