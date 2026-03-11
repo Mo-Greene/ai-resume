@@ -42,7 +42,12 @@ TYPE:ADVICE
 규칙:
 - 수정 요청 → TYPE:EDIT + 전체 Markdown
 - 조언/분석 요청 → TYPE:ADVICE + 텍스트
-- 첫 줄은 반드시 TYPE:EDIT 또는 TYPE:ADVICE 만 작성`
+- 첫 줄은 반드시 TYPE:EDIT 또는 TYPE:ADVICE 만 작성
+
+[이력서 작성 원칙 — 항상 적용]
+- 모든 성과는 수치(%, 금액, 횟수, 기간 등)를 포함해 구체화하세요.
+- 문장은 "주도했다", "구축했다", "개선했다", "달성했다" 등 능동 동사로 시작하세요.
+- 업무 나열이 아닌 결과와 임팩트 중심으로 서술하세요.`
 
 function parseTypeResponse(raw: string): { type: "edit" | "advice"; content: string } {
   const idx = raw.indexOf("\n")
