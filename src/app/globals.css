@@ -186,6 +186,46 @@
   animation: spin 0.8s linear infinite;
 }
 
+/* ── Float (decorative letters) ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ── Marquee (horizontal scroll strip) ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 22s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Timeline dot pulse ── */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1);   opacity: 1;   }
+  50%       { transform: scale(2.2); opacity: 0.25; }
+}
+
+/* ── Cursor blink ── */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink {
+  animation: cursor-blink 1s step-start infinite;
+}
+
+/* ── Pipeline item active sweep ── */
+@keyframes pipeline-glow {
+  0%   { box-shadow: inset 0 0 0 0 transparent; }
+  50%  { box-shadow: inset 0 0 0 1px currentColor; }
+  100% { box-shadow: inset 0 0 0 0 transparent; }
+}
+
 /* ── Button sweep hover ── */
 .btn-sweep {
   position: relative;
