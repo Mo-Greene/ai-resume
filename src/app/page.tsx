@@ -47,7 +47,9 @@ export default function Home() {
                 <span className="hero-line" style={{ animationDelay: "0.35s" }}>이력서를</span>
               </span>
               <span className="block overflow-hidden py-1">
-                <span className="hero-line text-muted-foreground/80" style={{ animationDelay: "0.55s" }}>다시 쓰다.</span>
+                <span className="hero-line text-muted-foreground/80" style={{ animationDelay: "0.55s" }}>
+                다시 쓰다.<span className="cursor-blink ml-1 font-thin text-muted-foreground/50">|</span>
+              </span>
               </span>
             </h1>
           </div>
@@ -114,13 +116,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Marquee strip ── */}
+      <div className="border-b border-foreground overflow-hidden py-3 select-none" aria-hidden>
+        <div className="marquee-track flex whitespace-nowrap gap-0">
+          {[0, 1].map((copy) => (
+            <span key={copy} className="flex items-center gap-6 pr-6">
+              {["AI 이력서 빌더", "PDF 분석 & 강화", "대화형 AI 인터뷰", "문구 자동 생성", "Markdown 변환", "PDF 출력", "AI 이력서 빌더", "PDF 분석 & 강화", "대화형 AI 인터뷰", "문구 자동 생성", "Markdown 변환", "PDF 출력"].map((item, i) => (
+                <span key={i} className="flex items-center gap-6">
+                  <span className="text-xs font-mono tracking-[0.2em] uppercase text-muted-foreground/60">{item}</span>
+                  <span className="text-muted-foreground/30 text-xs">·</span>
+                </span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ── Section 2: 타임라인 ── */}
       <section className="border-b border-border grid md:grid-cols-2">
 
         {/* A 타임라인 */}
         <div className="md:border-r border-border border-b md:border-b-0 px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
           <div className="flex items-baseline gap-3 mb-8 md:mb-10" data-animate>
-            <span className="text-[4rem] md:text-[5rem] font-black leading-none text-muted-foreground/35 select-none">A</span>
+            <span className="text-[4rem] md:text-[5rem] font-black leading-none text-muted-foreground/35 select-none" style={{ animation: "float 5s ease-in-out infinite" }}>A</span>
             <div>
               <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground">기존 이력서가 있다면</p>
               <p className="text-lg md:text-xl font-black uppercase leading-tight">PDF 업로드 & 강화</p>
@@ -142,7 +160,10 @@ export default function Home() {
                 style={{ transitionDelay: `${0.05 + i * 0.1}s` }}
               >
                 <div className="relative z-10 shrink-0 w-6 h-6 rounded-full border-2 border-foreground bg-background flex items-center justify-center mt-0.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                  <div
+                    className="w-1.5 h-1.5 rounded-full bg-foreground"
+                    style={{ animation: `pulse-dot 2.4s ease-in-out ${i * 0.6}s infinite` }}
+                  />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -159,7 +180,7 @@ export default function Home() {
         {/* B 타임라인 */}
         <div className="px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between">
           <div className="flex items-baseline gap-3 mb-8 md:mb-10" data-animate>
-            <span className="text-[4rem] md:text-[5rem] font-black leading-none text-muted-foreground/35 select-none">B</span>
+            <span className="text-[4rem] md:text-[5rem] font-black leading-none text-muted-foreground/35 select-none" style={{ animation: "float 5s ease-in-out 1.5s infinite" }}>B</span>
             <div>
               <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground">이력서가 없다면</p>
               <p className="text-lg md:text-xl font-black uppercase leading-tight">대화형 AI 인터뷰</p>
@@ -181,7 +202,10 @@ export default function Home() {
                 style={{ transitionDelay: `${0.05 + i * 0.1}s` }}
               >
                 <div className="relative z-10 shrink-0 w-6 h-6 rounded-full border-2 border-foreground bg-background flex items-center justify-center mt-0.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                  <div
+                    className="w-1.5 h-1.5 rounded-full bg-foreground"
+                    style={{ animation: `pulse-dot 2.4s ease-in-out ${i * 0.6 + 0.3}s infinite` }}
+                  />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -215,7 +239,10 @@ export default function Home() {
               data-animate
               style={{ transitionDelay: `${i * 0.07}s` }}
             >
-              <span className="border border-foreground px-4 md:px-5 py-2.5 md:py-3 text-sm font-medium tracking-wide hover:bg-foreground hover:text-background transition-colors cursor-default">
+              <span
+                className="border border-foreground px-4 md:px-5 py-2.5 md:py-3 text-sm font-medium tracking-wide hover:bg-foreground hover:text-background transition-colors cursor-default"
+                style={{ animation: `pipeline-glow 3s ease-in-out ${i * 0.5}s infinite` }}
+              >
                 {item}
               </span>
               {i < arr.length - 1 && (
